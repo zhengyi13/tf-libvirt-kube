@@ -1,0 +1,48 @@
+* Purpose
+
+My hope here is to turn this working example `main.tf` into a module
+that can be used to spin up an arbitrary number of machines, and in as
+automated a fashion as possible, turn that into a k8s cluster.
+
+** Underlying Setup
+
+A libvirt KVM/QEMU virtualization server under my desk. My bridge
+device puts the VMs on the same flat network as the rest of the
+devices in my house, because I haven't yet figured out routing to a
+private subnet on that same server.
+
+DHCP is on the network's main firewall/gateway, and auto-registers
+names with the DNS service on the same.
+
+** Tech
+
+- dmavicar's libvirt TF module to create the VMs
+- Fedora Cloud Base images
+- cloud-init to massage the images
+- Ansible (maybe?) to manage nodes post-install
+- Kubespray to roll out k8s
+
+** TODOs
+
+- An automated Ansible inventory
+
+  This turns out to be both possible with an Ansible community plugin,
+  and frustratingly not-so-possible given Fedora base images have
+  SELinux turned on, which breaks the Ansible plugin if we use the
+  libvirt_qemu connection instead of plain ssh.
+
+  ... So, automate a static inventory file creation 
+
+- Fix base image SELinux policies to work with the Ansible
+  libvirt_qemu connection plugin
+
+- Figure out routing/subnetting so I can do this on a normal
+  out-of-the-box bridge device with a private subnet.
+
+- Speed up k8s rollout.
+
+  kubespray is nice and thorough, but it takes a long time. How much
+  of what it does can be massaged into the cloud-init config to save
+  time further down the road?
+
+- Automate etdctl config to take etcd backups
