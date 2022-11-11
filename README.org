@@ -16,14 +16,14 @@ names with the DNS service on the same.
 
 ** Tech
 
-- dmavicar's libvirt TF module to create the VMs
-- Fedora Cloud Base images
-- cloud-init to massage the images
+- dmacvicar's [[https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs][libvirt TF module]] to create the VMs
+- Fedora [[https://alt.fedoraproject.org/cloud/][Cloud Base images]]
+- [[https://cloudinit.readthedocs.io/en/latest/][cloud-init]] to massage the images
 - Ansible (maybe?) to manage nodes post-install
-- Kubespray to roll out k8s
+- [[https://github.com/kubernetes-sigs/kubespray][Kubespray]] to roll out k8s
 
 ** TODOs
-
+  
 - An automated Ansible inventory
 
   This turns out to be both possible with an Ansible community plugin,
